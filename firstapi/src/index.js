@@ -3,22 +3,23 @@ const { URL } = require("url");
 const routes = require("./routes");
 
 const server = http.createServer((request, response) => {
-  /**
-   * Separa a URL dos queryParams
-   * - true -> transforma a query de text para object
-   */
   const parsedUrl = new URL(`http://localhost:3000${request.url}`);
+  let { pathname } = parsedUrl;
+  let id = null;
 
-  console.log(`Request method: ${request.method} | Endpoint: ${parsedUrl.pathname}`);
+  const splitEndpoint = pathname.split("/").filter(Boolean);
+  if (splitEndpoint.length > 1) {
+    pathname = `/${splitEndpoint[0]}/:id`;
+    id = splitEndpoint[1];
+  }
 
   const route = routes.find(
-    (routeObj) => routeObj.method === request.method && routeObj.endpoint === parsedUrl.pathname
+    (routeObj) => routeObj.method === request.method && routeObj.endpoint === pathname
   );
 
   if (route) {
-    /* Injetando a query na request
-        - Object.fromEntries transforma Iterables em objetos */
     request.query = Object.fromEntries(parsedUrl.searchParams);
+    request.params = { id };
 
     route.handler(request, response);
   } else {
