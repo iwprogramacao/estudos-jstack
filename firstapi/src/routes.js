@@ -18,4 +18,14 @@ module.exports = [
     endpoint: "/users",
     handler: UserController.createUser,
   },
+  {
+    method: "PUT",
+    endpoint: "/users/:id",
+    handler: UserController.updateUser,
+  },
+  {
+    method: "DELETE",
+    endpoint: "/users/:id",
+    handler: UserController.deleteUser,
+  },
 ];
