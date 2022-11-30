@@ -1,23 +1,18 @@
 const http = require("http");
-const users = require("../mocks/users");
+const routes = require("./routes");
 
 const server = http.createServer((request, response) => {
-  /* Console log da request que está chegando do servidor */
   console.log(`Request method: ${request.method} | Endpoint: ${request.url}`);
-  /* Ao acessar localhost:3000, responde o seguinte texto no servidor:
-      
-      Request method: GET | Endpoint: /
-      Request method: GET | Endpoint: /favicon.ico
-    
-    Sabendo desses atributos, podemos indicar o que cada requisição irá receber:
-  */
 
-  if (request.method === "GET" && request.url === "/users") {
-    response.writeHead(200, { "Content-Type": "application/json" });
-    response.end(JSON.stringify(users));
+  const route = routes.find(
+    (routeObj) => routeObj.method === request.method && routeObj.endpoint === request.url
+  );
+
+  if (route) {
+    route.handler(request, response);
   } else {
-    response.writeHead(200, { "Content-Type": "text/html" });
-    response.end("<h1>Hello World</h1>");
+    response.writeHead(404, { "Content-Type": "text/html" });
+    response.end(`Cannot ${request.method} ${request.url}`);
   }
 });
 
