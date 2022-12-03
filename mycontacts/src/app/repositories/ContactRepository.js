@@ -68,7 +68,6 @@ class ContactRepository {
         name,
         email,
         phone,
-
       };
 
       contacts = contacts.map((contact) => (contact.id === id ? updatedContact : contact));
