@@ -1,26 +1,15 @@
 const db = require('../../database');
 
 class ContactRepository {
-  async findAll(orderBy = 'ASC') {
-    const direction = orderBy.toUpperCase() === 'DESC' ? 'DESC' : 'ASC';
-    const rows = await db.query(`
-    SELECT * FROM contacts
-    ORDER BY name ${direction}
-    `);
-    return rows;
-  }
-
-  async findById(id) {
+  async create({
+    name, email, phone, category_id,
+  }) {
     const [row] = await db.query(`
-    SELECT * FROM contacts WHERE id = $1
-    `, [id]);
-    return row;
-  }
+    INSERT INTO contacts (name, email, phone, category_id)
+    VALUES ($1, $2, $3, $4)
+    RETURNING *
+    `, [name, email, phone, category_id]);
 
-  async findByEmail(email) {
-    const [row] = await db.query(`
-    SELECT * FROM contacts WHERE email = $1
-    `, [email]);
     return row;
   }
 
@@ -31,16 +20,26 @@ class ContactRepository {
     return deleteOp;
   }
 
-  async create({
-    name, email, phone, category_id,
-  }) {
-    /* [row] pois o retorno do db.query é um array das linhas do banco de dados */
-    const [row] = await db.query(`
-    INSERT INTO contacts (name, email, phone, category_id)
-    VALUES ($1, $2, $3, $4)
-    RETURNING *
-    `, [name, email, phone, category_id]);
+  async findAll(orderBy = 'ASC') {
+    const direction = orderBy.toUpperCase() === 'DESC' ? 'DESC' : 'ASC';
+    const rows = await db.query(`
+    SELECT * FROM contacts
+    ORDER BY name ${direction}
+    `);
+    return rows;
+  }
 
+  async findByEmail(email) {
+    const [row] = await db.query(`
+    SELECT * FROM contacts WHERE email = $1
+    `, [email]);
+    return row;
+  }
+
+  async findById(id) {
+    const [row] = await db.query(`
+    SELECT * FROM contacts WHERE id = $1
+    `, [id]);
     return row;
   }
 
