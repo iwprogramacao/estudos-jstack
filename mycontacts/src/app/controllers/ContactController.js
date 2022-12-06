@@ -53,7 +53,7 @@ class ContactController {
   async update(request, response) {
     const { id } = request.params;
     const {
-      name, email, phone,
+      name, email, phone, category_id,
     } = request.body;
 
     const contactExist = await ContactRepository.findById(id);
@@ -70,7 +70,7 @@ class ContactController {
     }
 
     const contact = await ContactRepository.update(id, {
-      name, email, phone,
+      name, email, phone, category_id,
     });
 
     return response.json(contact);

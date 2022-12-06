@@ -17,9 +17,11 @@ class CategoryRepository {
     return deleteOp;
   }
 
-  async findAll() {
+  async findAll(orderBy = 'ASC') {
+    const order = orderBy.toUpperCase() === 'DESC' ? 'DESC' : 'ASC';
     const rows = await db.query(`
-      SELECT * FROM categories ORDER BY name
+      SELECT * FROM categories
+      ORDER BY name ${order}
     `);
     return rows;
   }

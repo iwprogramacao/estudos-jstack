@@ -14,7 +14,8 @@ class CategoryController {
   }
 
   async index(request, response) {
-    const categories = await CategoryRepository.findAll();
+    const { orderBy } = request.params;
+    const categories = await CategoryRepository.findAll(orderBy);
 
     return response.json(categories);
   }
