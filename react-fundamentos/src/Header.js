@@ -11,7 +11,7 @@ export default function Header({ title, children }) {
 }
 
 Header.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   children: PropTypes.node.isRequired,
 };
 
