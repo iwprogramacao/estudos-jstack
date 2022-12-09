@@ -33,9 +33,9 @@ export default function App() {
   }
 
   function handleRemovePost(postId) {
-    setPosts((prevState) => {
+    setPosts((prevState) => (
       prevState.filter((post) => post.id !== postId);
-    });
+    ));
   }
 
   return (
