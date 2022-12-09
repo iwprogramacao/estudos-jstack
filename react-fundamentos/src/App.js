@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import Header from './Header';
 import Post from './Post';
+import ThemeProvider from './ThemeContext';
 
 export default function App() {
   const [posts, setPosts] = useState([
@@ -33,13 +34,15 @@ export default function App() {
   }
 
   function handleRemovePost(postId) {
-    setPosts((prevState) => {
-      prevState.filter((post) => post.id !== postId);
-    });
+    setPosts((prevState) => prevState.filter((post) => post.id !== postId));
+  }
+
+  function handleToggleTheme() {
+    setTheme((prevState) => (prevState === 'dark' ? 'dark' : 'light'));
   }
 
   return (
-    <>
+    <ThemeProvider>
       <Header title="JStack's Blog">
         <h2>
           Posts da Semana
@@ -56,6 +59,6 @@ export default function App() {
           post={post}
         />
       ))}
-    </>
+    </ThemeProvider>
   );
 }
