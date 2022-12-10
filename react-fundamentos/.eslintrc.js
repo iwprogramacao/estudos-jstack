@@ -18,6 +18,7 @@ module.exports = {
     'react',
   ],
   rules: {
+    'react/jsx-no-constructed-context-values': 'off',
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
     'no-undef': 'off',
     'react/jsx-no-bind': 'off',
