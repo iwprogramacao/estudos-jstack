@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import Header from './Header';
-import Post from './Post';
-import ThemeProvider from './ThemeContext';
-import styles from './App.scss';
+import Header from '../Header';
+import Post from '../Posts';
+import ThemeProvider from '../../contexts/ThemeContext';
+import { Title } from './styles';
 
 export default function App() {
   const [posts, setPosts] = useState([
     {
-      id: Math.random(), title: 'Title #01', subtitle: 'Subtitle #01', likes: 20, read: false, removed: true,
+      id: Math.random(), title: 'Title #01', subtitle: 'Subtitle #01', likes: 20, read: false, removed: false,
     },
     {
       id: Math.random(), title: 'Title #02', subtitle: 'Subtitle #02', likes: 10, read: true, removed: false,
@@ -43,10 +43,10 @@ export default function App() {
   return (
     <ThemeProvider>
       <Header title="JStack's Blog">
-        <h2 className={styles.title}>
+        <Title as="h2">
           Posts da Semana
           <button type="button" onClick={handleRefresh}>Atualizar</button>
-        </h2>
+        </Title>
       </Header>
 
       <hr />
