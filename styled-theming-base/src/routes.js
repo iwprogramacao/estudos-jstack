@@ -1,7 +1,8 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Home from './pages/Home';
-import Posts from './pages/PostsList';
+import Post from './pages/Post';
+import Posts from './pages/Posts';
 import NotFound from './pages/NotFound';
 
 export default function Routes() {
@@ -13,8 +14,13 @@ export default function Routes() {
         component={Home}
       />
       <Route
+        exact
         path="/posts"
         component={Posts}
+      />
+      <Route
+        path="/posts/:id"
+        component={Post}
       />
       <Route
         path="*"

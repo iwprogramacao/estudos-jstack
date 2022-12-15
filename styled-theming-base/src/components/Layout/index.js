@@ -16,7 +16,9 @@ export default function Layout({ onToggleTheme, selectedTheme }) {
         selectedTheme={selectedTheme}
       />
       <Nav>
-        <Link to="/">Home</Link> <Link to="/posts">Posts</Link>{' '}
+        <Link to="/">Home</Link>
+        <Link to="/posts">Posts</Link>
+        <Link to="/posts/12312">Posts</Link>
       </Nav>
       <Routes />
       <Footer
