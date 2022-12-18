@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import {
   ContactsListContainer, Header, ListContainer, Card, InputSearchContainer,
 } from './styles';
@@ -8,6 +9,19 @@ import edit from '../../assets/images/icons/edit.svg';
 import trash from '../../assets/images/icons/trash.svg';
 
 export default function Home() {
+  const [contacts, setContacts] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:3001/contacts')
+      .then(async (response) => {
+        const json = await response.json();
+        setContacts(json);
+      })
+      .catch((err) => { console.log(err); });
+  }, []);
+
+  console.log(contacts);
+
   return (
     <ContactsListContainer>
       <InputSearchContainer>
